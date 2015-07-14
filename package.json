@@ -1,0 +1,15 @@
+{
+  "name": "the-path-of-water",
+  "version": "0.0.1",
+  "author": "Viktor Ivanov <viktor.r.ivanov@gmail.com>",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shrike/the-path-of-water.git"
+  },
+  "dependencies": {
+    "express": "^4.13.1"
+  },
+  "devDependencies": {},
+  "private": true
+}

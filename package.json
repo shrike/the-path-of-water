@@ -8,7 +8,8 @@
     "url": "https://github.com/shrike/the-path-of-water.git"
   },
   "dependencies": {
-    "express": "^4.13.1"
+    "express": "^4.13.1",
+    "fast-csv": "^0.6.0"
   },
   "devDependencies": {},
   "private": true

@@ -6,7 +6,8 @@ function initialize() {
 	};
 	
 	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+	map.setOptions({styles: styles});
+	
 	for(f of fountains.slice(1)) {
 		var name = f[2];
 		var X = Number(f[16]);
@@ -16,6 +17,7 @@ function initialize() {
 			position: { lat: Y, lng: X},
 			title: name,
 			map: map,
+			icon: 'img/ico-fountain32.ico'
 		});
 	}
 }

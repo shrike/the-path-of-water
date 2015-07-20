@@ -6,8 +6,17 @@ function initialize() {
 	};
 	
 	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+	// Set the general map styles
 	map.setOptions({styles: styles});
-	
+
+	// Outline the 3 municipalities
+	var municipalityLayer  = new google.maps.KmlLayer({
+		url: 'https://sites.google.com/site/thepathofwater2/kmls/stg.kml',
+		clickable: false,
+		map: map
+	});
+
 	for(f of fountains.slice(1)) {
 		var name = f[2];
 		var X = Number(f[16]);

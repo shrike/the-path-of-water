@@ -1,5 +1,34 @@
 html, body, #map-canvas { 
-	height: 100%; 
 	margin: 0; 
 	padding: 0;
+}
+
+#nav, #rest, #gallery, #map-canvas {
+	position: absolute;
+}
+
+#nav {
+	background-color: blue;
+	width: 315px;
+	height: 100%;
+}
+
+#rest {
+	left: 315px;
+	height: 100%;
+	right: 0px;
+}
+
+#map-canvas {
+	top: 0px;
+	left: 0px;
+	bottom: 145px;
+	right: 0px;
+}
+
+#gallery {
+	background-color: red;
+	height: 145px;
+	width: 100%;
+	bottom: 0px;
 }

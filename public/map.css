@@ -8,9 +8,21 @@ html, body, #map-canvas {
 }
 
 #nav {
-	background-color: blue;
+	background-color: white;
 	width: 315px;
 	height: 100%;
+}
+
+#nav h3 {
+	text-transform: uppercase;
+}
+
+#nav div.submenu{
+	display: none;
+}
+
+#nav div.submenu.active {
+	display: block;
 }
 
 #rest {
@@ -32,3 +44,4 @@ html, body, #map-canvas {
 	width: 100%;
 	bottom: 0px;
 }
+

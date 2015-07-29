@@ -6,22 +6,56 @@ jQuery(document).ready(function(){
 
 var markers = {};
 var map;
+var infobox;
+
+function createMarker(name, X, Y, description, img_url) {
+	var marker = new google.maps.Marker({
+		position: { lat: Y, lng: X},
+		title: name,
+		icon: 'img/ico-fountain32.ico'
+	});
+
+	var contentString = 
+		'<div id="marker-popup-content">'+
+			'<h2>' + name + '</h2>'+
+			'<div id="marker-popup-thumb">'+
+				'<img src="' + img_url + '" />' +
+			'</div>'+
+			'<div id="marker-popup-text">'+
+				'<p>' + description + '</p>'+
+				'<span id="marker-popup-btn">виж повече' + '</span>'+
+			'</div>'+
+		'</div>';
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infobox.setContent(contentString);
+		infobox.open(map, marker);
+	});
+
+	return marker;
+}
 
 function initMarkers() {
+    infobox = new InfoBox({
+		disableAutoPan: false,
+		maxWidth: 410,
+		pixelOffset: new google.maps.Size(-410/2, 0),
+		zIndex: null,
+		boxClass: 'marker-popup',
+		closeBoxMargin: "20px 4px 4px 4px",
+		closeBoxURL: "img/close.png",
+		infoBoxClearance: new google.maps.Size(1, 1)
+    });
+    
 	for(f of fountains.slice(1)) {
 		var id = f[0];
 		var name = f[2];
 		var X = Number(f[16]);
 		var Y = Number(f[17]);
 		
-		var marker = new google.maps.Marker({
-			position: { lat: Y, lng: X},
-			title: name,
-			icon: 'img/ico-fountain32.ico'
-		});
-
-		markers[id] = marker;
+		markers[id] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png');
 	}
+	
 }
 
 function initNav() {

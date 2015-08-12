@@ -1,6 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,cyrillic);
+
 html, body, #map-canvas { 
 	margin: 0; 
 	padding: 0;
+	font-family: 'Open Sans',Arial, Helvetica, sans-serif;
 }
 
 #nav, #rest, #gallery, #map-canvas {
@@ -46,38 +49,159 @@ html, body, #map-canvas {
 }
 
 .marker-popup {
-	background: url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat;
+	/*background: url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat;*/
+	background: url('img/tipbox.png') no-repeat;
 	background-position: center top;
 	opacity: 0.95;
 }
 
 #marker-popup-content {
 	margin-top: 8px; /* This margin should equal the tipbox image's height */
-	width: 410px;
-	height: 250px;
+	width: 390px;
+	height: 210px;
 	border-radius: 7px;
 	color: #ffffff;
 	font-size: 12px;
 	background-color: #656e78;
+	padding: 20px;
 }
 
 #marker-popup-text {
-	position: absolute;
-	left: 140px;
+	float: left;
+	width: 235px;
+	margin-left: 15px;
+	position: relative;
 }
 
 #marker-popup-content  h2{
-	font-size: 16px;
-	margin: 0px;
+	font-size: 18px;
+	margin: 0 0 20px 0;
+	font-weight: 500;
 }
 
 #marker-popup-btn {
 	background-color: #e84e1f;
+	font-weight: 700;
 	font-size: 13px;
+	padding: 10px 20px;
+	display: inline-block;
+	clear: both;
+	margin-top: 10px !important;
 }
 
 #marker-popup-thumb {
-	position: absolute;
 	width: 140px;
 	height: 95px;
+	float: left;
 }
+
+/* Nav Styles */
+#nav {
+	overflow: scroll;
+}
+
+#nav h3 {
+	background: #707885;
+	background: -moz-linear-gradient(top,  #707885 0%, #5e6673 26%, #535b66 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#707885), color-stop(26%,#5e6673), color-stop(100%,#535b66));
+	background: -webkit-linear-gradient(top,  #707885 0%,#5e6673 26%,#535b66 100%);
+	background: -o-linear-gradient(top,  #707885 0%,#5e6673 26%,#535b66 100%);
+	background: -ms-linear-gradient(top,  #707885 0%,#5e6673 26%,#535b66 100%);
+	background: linear-gradient(to bottom,  #707885 0%,#5e6673 26%,#535b66 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#707885', endColorstr='#535b66',GradientType=0 ); 
+	padding: 5px 15px;
+	margin: 0;
+	color: #fff;
+	font-weight: 500;
+	font-size: 15px;
+	cursor: pointer;
+	border-bottom: 1px solid #4b4b4b;
+} 
+
+
+#nav h3:hover {
+	background: #545c67;
+}
+
+#nav h3 a {
+	width: 100%;
+	display: block;
+	background: url('img/bottom-map.png') no-repeat top right;
+	padding: 7px 0;
+	color: #FFF;
+	text-decoration: none;
+}
+
+#nav h3 a:hover {
+	background: url('img/bottom-map-hover.png') no-repeat top right;	
+}
+
+/* These styles must be applied to h3, when the menu is open */
+/*
+#nav h3 {
+	background: #f8804f;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ODA0ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI2JSIgc3RvcC1jb2xvcj0iI2YxNjIyNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlOTUxMjIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  #f8804f 0%, #f16226 26%, #e95122 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8804f), color-stop(26%,#f16226), color-stop(100%,#e95122));
+	background: -webkit-linear-gradient(top,  #f8804f 0%,#f16226 26%,#e95122 100%);
+	background: -o-linear-gradient(top,  #f8804f 0%,#f16226 26%,#e95122 100%);
+	background: -ms-linear-gradient(top,  #f8804f 0%,#f16226 26%,#e95122 100%);
+	background: linear-gradient(to bottom,  #f8804f 0%,#f16226 26%,#e95122 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8804f', endColorstr='#e95122',GradientType=0 );
+
+	padding: 5px 15px;
+	margin: 0;
+	color: #fff;
+	font-weight: 500;
+	font-size: 15px;
+	cursor: pointer;
+	border-bottom: 1px solid #d44115;	
+}
+
+#nav h3:hover {
+	background: #e95122;
+}
+
+#nav h3 a {
+	width: 100%;
+	display: block;
+	background: url('img/top-map.png') no-repeat top right;
+	padding: 4px 0;
+	color: #FFF;
+	text-decoration: none;
+}
+
+#nav h3 a:hover {
+	background: url('img/top-map-hover.png') no-repeat top right;	
+}
+*/
+
+#nav div.submenu ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 3px 0;		
+}
+
+#nav div.submenu ul li {
+	background-color: #e8ebf0;	
+	padding: 8px 20px;
+	margin-bottom: 2px;	
+	color: #4c5e66;
+	font-size: 13px;
+	font-weight: 600;
+	position: relative;
+}
+
+#nav div.submenu ul li:hover {
+	background-color: #dfe4ec;	
+}
+
+#nav div.submenu ul li input[type=checkbox] {
+	width: 16px;
+	height: 16px;
+	border: 1px solid #aab7cc;
+	position: absolute;
+	right: 17px;
+}
+
+/* End Nav Styles */

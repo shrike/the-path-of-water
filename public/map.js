@@ -97,6 +97,11 @@ function initNav() {
   }
   
   $('#fountains-submenu').append(fountains_ul);
+  
+  $('#fountains-submenu li').click(function(event_data) {
+	$(event_data.target.children[0]).click();
+	$(event_data.target.children[0]).trigger('change');
+  });
 }
 
 function initialize() {

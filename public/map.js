@@ -54,9 +54,44 @@ function initMarkers() {
 		var Y = Number(f[17]);
 		
 		markers[id] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png');
+		markers[id]['checks'] = 0;
 	}
-	
+
+	for(o of objs.slice(1)) {
+		var name = o[0];
+		var coords = o[5].split(', ');
+		var X = Number(coords[1]);
+		var Y = Number(coords[0]);
+		var cat1 = o[6];
+		var cat2 = o[7];
+		var cat3 = o[8];
+		
+		if (X > 0 && Y > 0) {
+			markers[coords] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png');
+			markers[coords]['checks'] = 0;
+		}
+	}
 }
+
+
+function parseCat(name) {
+	if (name == 'Културен туризъм') {
+		return 'culture';
+	} else if(name == 'Орнитоложки') {
+		return 'birds';
+	} else if(name == 'Воден и речен туризъм') {
+		return 'water';
+	} else if(name == 'Еко туризъм') {
+		return 'eco';
+	} else if(name == 'Ловно-рибарски туризъм') {
+		return 'hunting';
+	} else if(name == 'Поколоннически') {
+		return 'religion';
+	} else {
+		console.log("UNRECOGNIZED CAT: " + name)
+	}
+}
+
 
 function initNav() {
   $('#accordion h3').click(function() {
@@ -64,39 +99,93 @@ function initNav() {
       return false;
   });
   
-  var fountains_ul = $('<ul></ul>');
-  var all_li = $('<li>' + 'Всички обекти' + '</li>');
-  var all_chck_box = $('<input type="checkbox" checked="true" value="all" />');
-  var all_check_boxes = [];
+  var categories = ['fountains', 'birds', 'culture', 'religion', 'eco', 'hunting', 'water'];
+  var uls = {};
+  var cat_to_all_check_boxes = {};
   
-  all_chck_box.change(function (event_data){
-	for(var b of all_check_boxes) {
-		$(b).prop('checked', event_data.target.checked);
-		$(b).trigger('change');
+	function makeObjLi(id, name, cat) {
+		var li = $('<li>'+ name +'</li>')
+		var chck_box = $('<input type="checkbox" checked="true" value="' + name + '">');
+		li.append(chck_box);
+
+		markers[id]['checks'] += 1;
+		
+		chck_box.change({id: id, check_box: chck_box}, function(event_data) {
+			var id = event_data.data['id'];
+			if (event_data.target.checked) {
+				markers[id]['checks'] += 1;
+				if (markers[id]['checks'] == 1)
+					markers[id].setMap(map);
+			}
+			else {
+				markers[id]['checks'] -= 1;
+				if (markers[id]['checks'] == 0)
+					markers[id].setMap(null);
+			}
+		});
+
+		cat_to_all_check_boxes[cat].push(chck_box);
+
+		return li;
 	}
-  });
+
+  for (var c of categories) {
+	uls[c] = $('<ul></ul>');
+	$('#' + c + '-submenu').append(uls[c]);
+
+	var all_li = $('<li>' + 'Всички обекти' + '</li>');
+	var all_chck_box = $('<input type="checkbox" checked="true" value="all" />');
+	var all_check_boxes = [];
+	cat_to_all_check_boxes[c] = all_check_boxes;
   
-  all_li.append(all_chck_box);
-  fountains_ul.append(all_li);
+	all_chck_box.change({cat: c}, function (event_data){
+		var cat = event_data.data['cat'];
+		for(var b of cat_to_all_check_boxes[cat]) {
+			$(b).prop('checked', event_data.target.checked);
+			$(b).trigger('change');
+		}
+	});
+  
+	all_li.append(all_chck_box);
+	uls[c].append(all_li);
+  }
+  
+  var fountains_ul = uls['fountains'];
 
   for(f of fountains.slice(1)) {
 	var name = f[2];
-	var fountain_li = $('<li>'+ name +'</li>')
-	var fountain_chck_box = $('<input type="checkbox" checked="true" value="' + name + '">');
-	fountain_li.append(fountain_chck_box);
-	
-	fountain_chck_box.change({id: f[0], check_box: fountain_chck_box}, function(event_data) {
-		var id = event_data.data['id'];
-		if(event_data.target.checked)
-			markers[id].setMap(map);
-		else
-			markers[id].setMap(null);
-	});
+	var id = f[0]
+	var fountain_li = makeObjLi(id, name, 'fountains');
 	fountains_ul.append(fountain_li);
-	all_check_boxes.push(fountain_chck_box);
   }
   
-  $('#fountains-submenu').append(fountains_ul);
+  $('#fountains-submenu li').click(function(event_data) {
+	$(event_data.target.children[0]).click();
+	$(event_data.target.children[0]).trigger('change');
+  });
+  
+  /******************* OTHER OBJS NAV *********************/
+  for(o of objs.slice(1)) {
+	var name = o[0];
+	var coords = o[5].split(', ');
+	var X = Number(coords[1]);
+	var Y = Number(coords[0]);
+	var cat1 = parseCat(o[6]);
+	var cat2 = parseCat(o[7]);
+	var cat3 = parseCat(o[8]);
+	
+	if (!markers[coords]) continue;
+	
+	if (cat1) {
+		uls[cat1].append(makeObjLi(coords, name, cat1));
+	}
+	if (cat2) {
+		uls[cat2].append(makeObjLi(coords, name, cat2));
+	}
+	if (cat3) {
+		uls[cat3].append(makeObjLi(coords, name, cat3));
+	}
+  }
   
   $('#fountains-submenu li').click(function(event_data) {
 	$(event_data.target.children[0]).click();

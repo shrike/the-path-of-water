@@ -37,15 +37,35 @@ html, body, #map-canvas {
 #map-canvas {
 	top: 0px;
 	left: 0px;
-	bottom: 145px;
+	bottom: 0px;
 	right: 0px;
 }
 
 #gallery {
-	background-color: red;
-	height: 145px;
+	background-color: rgba(255,255,255,.5);
+	height: 170px;
 	width: 100%;
 	bottom: 0px;
+	display: none;
+}
+
+#gallery img {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.img-caption{
+	width: 160px;
+}
+
+.img-container {
+	height: 150px;
+}
+
+.captions-container {
+	height: 20px;
+	display: flex;
+	font-size: 15px;
 }
 
 .marker-popup {

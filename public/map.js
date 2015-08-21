@@ -1,7 +1,10 @@
 
+var gallery;
+
 jQuery(document).ready(function(){
 	initMarkers();
 	initNav();
+	gallery = new Gallery($('#gallery'));
 });
 
 var markers = {};
@@ -12,7 +15,7 @@ var infobox;
 function makeNameUrl(name) {
 	var name_url = name.toLowerCase();
 	name_url = name_url.replace(/[ –]/g, '-');
-	name_url = name_url.replace(/["„”().,]/g, '');
+	name_url = name_url.replace(/["„”“().,]/g, '');
 	name_url = name_url.replace(/-+/g, '-');
 	
 	//console.log(name, name_url);
@@ -21,7 +24,7 @@ function makeNameUrl(name) {
 }
 
 
-function createMarker(name, X, Y, description, img_url, cat) {
+function createMarker(name, X, Y, description, cat, pics) {
 	var marker = new google.maps.Marker({
 		position: { lat: Y, lng: X},
 		title: name,
@@ -51,7 +54,11 @@ function createMarker(name, X, Y, description, img_url, cat) {
 	var domain = "http://water.wepbro.com/";
 	var read_more_url = domain + cat_url + "/" + makeNameUrl(name);
 	
-	var contentString = 
+	google.maps.event.addListener(marker, 'click', function() {
+		gallery.setPics(pics, name);
+		var img_url = gallery.getCover();
+
+		var contentString = 
 		'<div id="marker-popup-content">'+
 			'<h2>' + name + '</h2>'+
 			'<div id="marker-popup-thumb">'+
@@ -63,7 +70,6 @@ function createMarker(name, X, Y, description, img_url, cat) {
 			'</div>'+
 		'</div>';
 
-	google.maps.event.addListener(marker, 'click', function() {
 		infobox.setContent(contentString);
 		infobox.open(map, marker);
 	});
@@ -75,21 +81,26 @@ function initMarkers() {
     infobox = new InfoBox({
 		disableAutoPan: false,
 		maxWidth: 410,
-		pixelOffset: new google.maps.Size(-410/2, 0),
+		pixelOffset: new google.maps.Size(-410/2-10, 0),
 		zIndex: null,
 		boxClass: 'marker-popup',
-		closeBoxMargin: "20px 4px 4px 4px",
+		closeBoxMargin: "10px 4px 4px 4px",
 		closeBoxURL: "img/close.png",
 		infoBoxClearance: new google.maps.Size(1, 1)
     });
+	
+	infobox.addListener('closeclick', function() {
+		gallery.setPics([], '');
+	})
     
 	for(f of fountains.slice(1)) {
 		var id = f[0];
 		var name = f[2];
 		var X = Number(f[16]);
 		var Y = Number(f[17]);
+		var pics = f[13];
 		
-		markers[id] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png', 'fountain');
+		markers[id] = createMarker(name, X, Y, 'TODO desc', 'fountain', pics);
 		markers[id]['checks'] = 0;
 	}
 
@@ -106,7 +117,7 @@ function initMarkers() {
 			// Using cat1 in the call below will mean that the marker will always link to the WP article
 			// in the first category. This may cause some confusion for the users as when looking for a 
 			// culture object, one may end up in the article for a fountain, if an object is listed as both.
-			markers[coords] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png', parseCat(cat1));
+			markers[coords] = createMarker(name, X, Y, 'TODO desc', parseCat(cat1), '');
 			markers[coords]['checks'] = 0;
 		}
 	}

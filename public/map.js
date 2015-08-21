@@ -8,13 +8,49 @@ var markers = {};
 var map;
 var infobox;
 
-function createMarker(name, X, Y, description, img_url) {
+
+function makeNameUrl(name) {
+	var name_url = name.toLowerCase();
+	name_url = name_url.replace(/[ –]/g, '-');
+	name_url = name_url.replace(/["„”().,]/g, '');
+	name_url = name_url.replace(/-+/g, '-');
+	
+	//console.log(name, name_url);
+	
+	return name_url;
+}
+
+
+function createMarker(name, X, Y, description, img_url, cat) {
 	var marker = new google.maps.Marker({
 		position: { lat: Y, lng: X},
 		title: name,
 		icon: 'img/ico-fountain32.ico'
 	});
 
+	var cat_url;
+	if (cat == 'fountain') {
+		cat_url = 'fountain';
+	} else if (cat == 'birds') {
+		cat_url = 'orn-tourism';
+	} else if (cat == 'culture') {
+		cat_url = 'culture-tourism';
+	} else if (cat == 'religion') {
+		cat_url = 'pilgrimage-tourism';
+	} else if (cat == 'eco') {
+		cat_url = 'eco-tourism';
+	} else if (cat == 'hunting') {
+		cat_url = 'hunt-fish-tourism';
+	} else if (cat == 'water') {
+		cat_url = 'water-tourism';
+	} else {
+		console.log("WHAT? " + cat);
+	}
+	
+	//XXX Change the domain below to / when deploying (on either test domain or production)
+	var domain = "http://water.wepbro.com/";
+	var read_more_url = domain + cat_url + "/" + makeNameUrl(name);
+	
 	var contentString = 
 		'<div id="marker-popup-content">'+
 			'<h2>' + name + '</h2>'+
@@ -23,7 +59,7 @@ function createMarker(name, X, Y, description, img_url) {
 			'</div>'+
 			'<div id="marker-popup-text">'+
 				'<p>' + description + '</p>'+
-				'<span id="marker-popup-btn">виж повече' + '</span>'+
+				'<span id="marker-popup-btn"><a href="'+ read_more_url +'">виж повече' + '</a></span>'+
 			'</div>'+
 		'</div>';
 
@@ -53,7 +89,7 @@ function initMarkers() {
 		var X = Number(f[16]);
 		var Y = Number(f[17]);
 		
-		markers[id] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png');
+		markers[id] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png', 'fountain');
 		markers[id]['checks'] = 0;
 	}
 
@@ -67,7 +103,10 @@ function initMarkers() {
 		var cat3 = o[8];
 		
 		if (X > 0 && Y > 0) {
-			markers[coords] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png');
+			// Using cat1 in the call below will mean that the marker will always link to the WP article
+			// in the first category. This may cause some confusion for the users as when looking for a 
+			// culture object, one may end up in the article for a fountain, if an object is listed as both.
+			markers[coords] = createMarker(name, X, Y, 'TODO desc', 'img/todo.png', parseCat(cat1));
 			markers[coords]['checks'] = 0;
 		}
 	}
@@ -88,7 +127,7 @@ function parseCat(name) {
 	} else if(name == 'Поколоннически') {
 		return 'religion';
 	} else {
-		console.log("UNRECOGNIZED CAT: " + name)
+		//console.log("UNRECOGNIZED CAT: " + name)
 	}
 }
 
@@ -170,11 +209,12 @@ function initNav() {
 	var coords = o[5].split(', ');
 	var X = Number(coords[1]);
 	var Y = Number(coords[0]);
+	
+	if (!markers[coords]) continue;
+
 	var cat1 = parseCat(o[6]);
 	var cat2 = parseCat(o[7]);
 	var cat3 = parseCat(o[8]);
-	
-	if (!markers[coords]) continue;
 	
 	if (cat1) {
 		uls[cat1].append(makeObjLi(coords, name, cat1));

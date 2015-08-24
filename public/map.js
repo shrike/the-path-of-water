@@ -122,10 +122,21 @@ function initMarkers() {
 	for(f of fountains.slice(1)) {
 		var id = f[0];
 		var name = f[2];
+		var condition = f[7]
+		var material = f[8];
+		var has_water = f[9];
+		var has_rest_area = f[10];
+		var water_q = f[11];
 		var X = Number(f[16]);
 		var Y = Number(f[17]);
 		var pics = f[13];
-		var desc = "THIS IS A ЧУШМЪ";
+		var desc = "<ul>" + 
+			'<li>Състояние: ' + condition + '</li>' +
+			'<li>Материал: ' + material + '</li>' +
+			'<li>Течаща вода: ' + has_water + '</li>' +
+			'<li>Зона за отдих: ' + has_rest_area + '</li>' +
+			'<li>Качество на водата: ' + water_q + '</li>' +
+		'</ul>';
 		
 		markers[id] = createMarker(name, X, Y, desc, 'fountain', pics);
 		markers[id].checks = 0;

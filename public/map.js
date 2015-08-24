@@ -27,31 +27,40 @@ function makeNameUrl(name) {
 
 
 function createMarker(name, X, Y, description, cat, pics) {
-	var marker = new google.maps.Marker({
-		position: { lat: Y, lng: X},
-		title: name,
-		icon: 'img/ico-fountain32.ico'
-	});
-
+	var icon_path = 'img/icons/';
 	var cat_url;
+	
 	if (cat == 'fountain') {
+		icon_path += 'fountain.ico';
 		cat_url = 'fountain';
 	} else if (cat == 'birds') {
+		icon_path += 'ornithological-tourism.ico';
 		cat_url = 'orn-tourism';
 	} else if (cat == 'culture') {
 		cat_url = 'culture-tourism';
+		icon_path += 'cultural-tourism.ico';
 	} else if (cat == 'religion') {
 		cat_url = 'pilgrimage-tourism';
+		icon_path += 'pilgrimage-tourism.ico';
 	} else if (cat == 'eco') {
 		cat_url = 'eco-tourism';
+		icon_path += 'eco-tourism.ico';
 	} else if (cat == 'hunting') {
 		cat_url = 'hunt-fish-tourism';
+		icon_path += 'hunting-fishing-tourism.ico';
 	} else if (cat == 'water') {
 		cat_url = 'water-tourism';
+		icon_path += 'water-river-tourism.ico';
 	} else {
 		console.log("WHAT? " + cat);
 	}
-	
+
+	var marker = new google.maps.Marker({
+		position: { lat: Y, lng: X},
+		title: name,
+		icon: icon_path
+	});
+
 	//XXX Change the domain below to / when deploying (on either test domain or production)
 	var domain = "http://water.wepbro.com/";
 	var read_more_url = domain + cat_url + "/" + makeNameUrl(name);

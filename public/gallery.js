@@ -79,6 +79,8 @@ var Gallery = function (elem) {
 Gallery.prototype.getCover = function () {
 	if (this.pics.length > 0) {
 		return makeThumbPath(this.pics[0].name);
+	} else {
+		return "img/default-img.jpg"
 	}
 }
 

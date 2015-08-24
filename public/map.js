@@ -97,8 +97,7 @@ function initTours() {
 			preserveViewport: true
 		});
 		tour = new Tour(tourLayer);
-		tour.id = i;
-		tour.name = "Tour " + i;
+		tour.setId(i);
 		tours.push(tour);
 	}
 }
@@ -126,9 +125,11 @@ function initMarkers() {
 		var X = Number(f[16]);
 		var Y = Number(f[17]);
 		var pics = f[13];
+		var desc = "THIS IS A ЧУШМЪ";
 		
-		markers[id] = createMarker(name, X, Y, 'TODO desc', 'fountain', pics);
-		markers[id]['checks'] = 0;
+		markers[id] = createMarker(name, X, Y, desc, 'fountain', pics);
+		markers[id].checks = 0;
+		markers[id].desc = desc;
 	}
 
 	for(o of objs.slice(1)) {
@@ -139,13 +140,15 @@ function initMarkers() {
 		var cat1 = o[6];
 		var cat2 = o[7];
 		var cat3 = o[8];
+		var desc = o[3];
 		
 		if (X > 0 && Y > 0) {
 			// Using cat1 in the call below will mean that the marker will always link to the WP article
 			// in the first category. This may cause some confusion for the users as when looking for a 
 			// culture object, one may end up in the article for a fountain, if an object is listed as both.
-			markers[coords] = createMarker(name, X, Y, 'TODO desc', parseCat(cat1), '');
-			markers[coords]['checks'] = 0;
+			markers[coords] = createMarker(name, X, Y, desc, parseCat(cat1), '');
+			markers[coords].checks = 0;
+			markers[coords].desc = desc;
 		}
 	}
 }

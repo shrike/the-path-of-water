@@ -95,6 +95,8 @@ html, body, #map-canvas {
 	width: 235px;
 	margin-left: 15px;
 	position: relative;
+    overflow-y: auto;
+    max-height: 140px;
 }
 
 #marker-popup-content  h2{

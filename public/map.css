@@ -54,6 +54,10 @@ html, body, #map-canvas {
 	margin-left: 5px;
 }
 
+.full-img-dialog {
+	display: none;
+}
+
 .img-caption{
 	width: 160px;
 }

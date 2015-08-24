@@ -1,13 +1,42 @@
 
 var domain = "http://water.wepbro.com/";
 
+
 function makeThumbPath(name) {
 	return domain + 'wp-content/uploads/2015/08/' + name + '-150x150.jpg';
 }
+function makeImagePath(name) {
+	return domain + 'wp-content/uploads/2015/08/' + name + '.jpg';
+}
+
 
 var Gallery = function (elem) {
 	this.pics = [];
 	
+	this._makeDialog = function(a, full_img_div, title) {
+		a.on('click', function(){
+			full_img_div.dialog({
+				closeOnEscape: true,
+				draggable: false,
+				modal: true,
+				resizable: false,
+				title: title,
+				width:'auto'
+			});
+		});
+	}
+		
+
+/*	elem.on('click', 'a', function(event_data){
+		$(event_data.currentTarget.children[0]).dialog({
+			closeOnEscape: true,
+			draggable: false,
+			modal: true,
+			resizable: false,
+			
+		});
+	});
+*/	
 	this.show = function () {
 		//XXX Change the domain below to / when deploying (on either test domain or production)
 		
@@ -19,14 +48,22 @@ var Gallery = function (elem) {
 		
 		for (var i of this.pics) {
 			/* Now make the img tags for each picture */
-			var div = $('<div class="gallery-img"></div>');
 			
-			var img = $('<img />');
-			img.attr('src', makeThumbPath(i.name));
+			var thumb = $('<img />');
+			thumb.attr('src', makeThumbPath(i.name));
+			var full_img = $('<img />');
+			full_img.attr('src', makeImagePath(i.name));
 			
+			var full_img_div = $('<div class="full-img-dialog"></div>');
+			full_img_div.append(full_img);
+
+			var a = $('<a href="#"></a>');
+			a.append(thumb);
+			this._makeDialog(a, full_img_div, i.caption);
+
 			var caption = $('<span class="img-caption">' + i.caption + '</span>');
 			
-			imgs_div.append(img);
+			imgs_div.append(a);
 			captions_div.append(caption);
 		}
 	

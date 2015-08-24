@@ -251,7 +251,6 @@ function initNav() {
 	
 	$('#' + c + '-submenu').on('click', 'li', function(event_data) {
 		$(event_data.target.children[0]).click();
-		$(event_data.target.children[0]).trigger('change');
 	});
   
 	var all_li = $('<li>' + 'Всички обекти' + '</li>');
@@ -262,8 +261,10 @@ function initNav() {
 	all_chck_box.change({cat: c}, function (event_data){
 		var cat = event_data.data['cat'];
 		for(var b of cat_to_all_check_boxes[cat]) {
-			$(b).prop('checked', event_data.target.checked);
-			$(b).trigger('change');
+			if ($(b).prop('checked') != event_data.target.checked) {
+				$(b).prop('checked', event_data.target.checked);
+				$(b).trigger('change');
+			}
 		}
 	});
   

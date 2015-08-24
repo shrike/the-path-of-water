@@ -3,11 +3,13 @@ var gallery;
 
 jQuery(document).ready(function(){
 	initMarkers();
+	initTours();
 	initNav();
 	gallery = new Gallery($('#gallery'));
 });
 
 var markers = {};
+var tours = [];
 var map;
 var infobox;
 
@@ -74,8 +76,33 @@ function createMarker(name, X, Y, description, cat, pics) {
 		infobox.open(map, marker);
 	});
 
+	marker.show = function(map) {
+		this.setMap(map);
+	}
+	
+	marker.hide = function() {
+		this.setMap(null);
+	}
+	
 	return marker;
 }
+
+
+function initTours() {
+	// Load the kmls for all 13 tours
+	for(var i=1; i<=13; ++i) {
+		var tourLayer = new google.maps.KmlLayer({
+			url: 'https://sites.google.com/site/thepathofwater2/kmls/t' + i + '.kml',
+			clickable: false,
+			preserveViewport: true
+		});
+		tour = new Tour(tourLayer);
+		tour.id = i;
+		tour.name = "Tour " + i;
+		tours.push(tour);
+	}
+}
+
 
 function initMarkers() {
     infobox = new InfoBox({
@@ -149,28 +176,28 @@ function initNav() {
       return false;
   });
   
-  var categories = ['fountains', 'birds', 'culture', 'religion', 'eco', 'hunting', 'water'];
+  var categories = ['fountains', 'birds', 'culture', 'religion', 'eco', 'hunting', 'water', 'tours'];
   var uls = {};
   var cat_to_all_check_boxes = {};
   
-	function makeObjLi(id, name, cat) {
+	function makeObjLi(obj, name, cat) {
 		var li = $('<li>'+ name +'</li>')
 		var chck_box = $('<input type="checkbox" checked="true" value="' + name + '">');
 		li.append(chck_box);
 
-		markers[id]['checks'] += 1;
+		obj.checks += 1
 		
-		chck_box.change({id: id, check_box: chck_box}, function(event_data) {
-			var id = event_data.data['id'];
+		chck_box.change({obj: obj, check_box: chck_box}, function(event_data) {
+			var obj = event_data.data['obj'];
 			if (event_data.target.checked) {
-				markers[id]['checks'] += 1;
-				if (markers[id]['checks'] == 1)
-					markers[id].setMap(map);
+				obj.checks += 1;
+				if (obj.checks == 1)
+					obj.show(map);
 			}
 			else {
-				markers[id]['checks'] -= 1;
-				if (markers[id]['checks'] == 0)
-					markers[id].setMap(null);
+				obj.checks -= 1;
+				if (obj.checks == 0)
+					obj.hide();
 			}
 		});
 
@@ -199,13 +226,19 @@ function initNav() {
 	all_li.append(all_chck_box);
 	uls[c].append(all_li);
   }
+
+  var tours_ul = uls['tours'];
+  for(t of tours) {
+	var tour_li = makeObjLi(t, t.name, 'tours');
+	tours_ul.append(tour_li);
+  }
   
   var fountains_ul = uls['fountains'];
 
   for(f of fountains.slice(1)) {
 	var name = f[2];
 	var id = f[0]
-	var fountain_li = makeObjLi(id, name, 'fountains');
+	var fountain_li = makeObjLi(markers[id], name, 'fountains');
 	fountains_ul.append(fountain_li);
   }
   
@@ -228,13 +261,13 @@ function initNav() {
 	var cat3 = parseCat(o[8]);
 	
 	if (cat1) {
-		uls[cat1].append(makeObjLi(coords, name, cat1));
+		uls[cat1].append(makeObjLi(markers[coords], name, cat1));
 	}
 	if (cat2) {
-		uls[cat2].append(makeObjLi(coords, name, cat2));
+		uls[cat2].append(makeObjLi(markers[coords], name, cat2));
 	}
 	if (cat3) {
-		uls[cat3].append(makeObjLi(coords, name, cat3));
+		uls[cat3].append(makeObjLi(markers[coords], name, cat3));
 	}
   }
   
@@ -261,7 +294,11 @@ function initialize() {
 		clickable: false,
 		map: map
 	});
-
+	
+	for (t of tours) {
+		t.show(map);
+	}
+	
 	for(m_id in markers) {
 		markers[m_id].setMap(map);
 	}

@@ -209,7 +209,12 @@ function initNav() {
   for (var c of categories) {
 	uls[c] = $('<ul></ul>');
 	$('#' + c + '-submenu').append(uls[c]);
-
+	
+	$('#' + c + '-submenu').on('click', 'li', function(event_data) {
+		$(event_data.target.children[0]).click();
+		$(event_data.target.children[0]).trigger('change');
+	});
+  
 	var all_li = $('<li>' + 'Всички обекти' + '</li>');
 	var all_chck_box = $('<input type="checkbox" checked="true" value="all" />');
 	var all_check_boxes = [];
@@ -242,11 +247,6 @@ function initNav() {
 	fountains_ul.append(fountain_li);
   }
   
-  $('#fountains-submenu li').click(function(event_data) {
-	$(event_data.target.children[0]).click();
-	$(event_data.target.children[0]).trigger('change');
-  });
-  
   /******************* OTHER OBJS NAV *********************/
   for(o of objs.slice(1)) {
 	var name = o[0];
@@ -270,11 +270,6 @@ function initNav() {
 		uls[cat3].append(makeObjLi(markers[coords], name, cat3));
 	}
   }
-  
-  $('#fountains-submenu li').click(function(event_data) {
-	$(event_data.target.children[0]).click();
-	$(event_data.target.children[0]).trigger('change');
-  });
 }
 
 function initialize() {

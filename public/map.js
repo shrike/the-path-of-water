@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
 	initMarkers();
 	initTours();
 	initNav();
+	initMyPlaces();
 	gallery = new Gallery($('#gallery'));
 });
 
@@ -12,6 +13,19 @@ var markers = {};
 var tours = [];
 var map;
 var infobox;
+var my_places;
+
+
+function initMyPlaces() {
+	my_places = new PlacesList($('#my-places ol'));
+	
+	infobox.addListener('domready', function() {
+		$('#marker-popup-content a.add-to-my-places').on('click', function(event_data) {
+			var id = event_data.target.dataset.objId;
+			my_places.add(id, markers[id]);
+		});
+	});
+}
 
 
 function makeNameUrl(name) {
@@ -26,7 +40,7 @@ function makeNameUrl(name) {
 }
 
 
-function createMarker(name, X, Y, description, cat, pics) {
+function createMarker(id, name, X, Y, description, cat, pics) {
 	var icon_path = 'img/icons/';
 	var cat_url;
 	
@@ -77,7 +91,8 @@ function createMarker(name, X, Y, description, cat, pics) {
 			'</div>'+
 			'<div id="marker-popup-text">'+
 				'<p>' + description + '</p>'+
-				'<span id="marker-popup-btn"><a href="'+ read_more_url +'">виж повече' + '</a></span>'+
+				'<span class="marker-popup-btn"><a href="'+ read_more_url +'">виж повече' + '</a></span>' +
+				'<span class="marker-popup-btn"><a href="#" data-obj-id="'+ id +'" class="add-to-my-places">Добави към "Моите Места"</a></span>' + 
 			'</div>'+
 		'</div>';
 
@@ -93,6 +108,7 @@ function createMarker(name, X, Y, description, cat, pics) {
 		this.setMap(null);
 	}
 	
+	marker.name = name;
 	return marker;
 }
 
@@ -147,7 +163,7 @@ function initMarkers() {
 			'<li>Качество на водата: ' + water_q + '</li>' +
 		'</ul>';
 		
-		markers[id] = createMarker(name, X, Y, desc, 'fountain', pics);
+		markers[id] = createMarker(id, name, X, Y, desc, 'fountain', pics);
 		markers[id].checks = 0;
 		markers[id].desc = desc;
 	}
@@ -166,7 +182,7 @@ function initMarkers() {
 			// Using cat1 in the call below will mean that the marker will always link to the WP article
 			// in the first category. This may cause some confusion for the users as when looking for a 
 			// culture object, one may end up in the article for a fountain, if an object is listed as both.
-			markers[coords] = createMarker(name, X, Y, desc, parseCat(cat1), '');
+			markers[coords] = createMarker(coords, name, X, Y, desc, parseCat(cat1), '');
 			markers[coords].checks = 0;
 			markers[coords].desc = desc;
 		}

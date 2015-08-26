@@ -214,6 +214,7 @@ function parseCat(name) {
 function initNav() {
   $('#accordion h3').click(function() {
       $(this).next().toggleClass('active');
+      $(this).toggleClass('open');
       return false;
   });
   

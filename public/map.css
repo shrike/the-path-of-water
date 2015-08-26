@@ -52,7 +52,7 @@ html, body, #map-canvas {
 	height: 170px;
     width: auto;
     white-space: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
 	overflow-y: hidden;
 	display: none;
 	border-top: 3px solid #ea5322;

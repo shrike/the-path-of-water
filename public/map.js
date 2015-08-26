@@ -32,6 +32,13 @@ function parseHash() {
 			$('#' + cat + '-submenu').prev().click();
 		}
 	}
+	
+	for(k in markers) {
+		var m = markers[k];
+		if (m.getMap()) {
+			google.maps.event.trigger(m, 'click');
+		}
+	}
 }
 
 

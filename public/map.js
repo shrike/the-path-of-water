@@ -90,10 +90,12 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 				'<img src="' + img_url + '" />' +
 			'</div>'+
 			'<div id="marker-popup-text">'+
-				'<p>' + description + '</p>'+
+				'<p>' + description + '</p>'+				
+			'</div>'+
+			'<div id="marker-popup-btns-container">' +
 				'<span class="marker-popup-btn"><a href="'+ read_more_url +'">виж повече' + '</a></span>' +
 				'<span class="marker-popup-btn"><a href="#" data-obj-id="'+ id +'" class="add-to-my-places">Добави към "Моите Места"</a></span>' + 
-			'</div>'+
+			'</div>' +
 		'</div>';
 
 		infobox.setContent(contentString);

@@ -102,19 +102,27 @@ html, body, #map-canvas {
 }
 
 #marker-popup-text {
-	float: left;
+	position: absolute;
+	left: 170px;
 	width: 235px;
 	height: 200px;
-	margin-left: 15px;
-	position: relative;
     overflow-y: auto;
     max-height: 140px;
+}
+
+#marker-popup-text p {
+	margin: 0px;
 }
 
 #marker-popup-content  h2{
 	font-size: 18px;
 	margin: 0 0 20px 0;
 	font-weight: 500;
+}
+
+#marker-popup-btns-container {
+	position: absolute;
+	top: 227px;
 }
 
 .marker-popup-btn {
@@ -167,7 +175,7 @@ html, body, #map-canvas {
 #marker-popup-thumb {
 	width: 140px;
 	height: 95px;
-	float: left;
+	position: absolute;
 }
 
 /* Nav Styles */

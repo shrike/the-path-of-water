@@ -16,21 +16,18 @@ PlacesList.prototype.add = function (id, obj) {
 		var li = $('<li>' + obj.name + '</li>');
 		var remove_link = $('<a href="#">[X]</a>');
 		
-		elem = this._elem;
+		_elem = this._elem;
+		list = _elem.find('ol');
 		remove_link.on('click', function(event_data){
 			delete places[id];
 			$(event_data.target.parentNode).remove();
+			if (list.children().length == 0) {
+				_elem.hide();
+			}
 		});
 
 		li.append(remove_link);
-		elem.append(li);
-	}
-}
-
-PlacesList.prototype._update = function() {
-	this._elem.empty();
-	
-	for(var id in this._places) {
-		console.log(id);
+		list.append(li);
+		_elem.show();
 	}
 }

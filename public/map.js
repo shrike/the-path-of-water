@@ -17,7 +17,7 @@ var my_places;
 
 
 function initMyPlaces() {
-	my_places = new PlacesList($('#my-places ol'));
+	my_places = new PlacesList($('#my-places'));
 	
 	infobox.addListener('domready', function() {
 		$('#marker-popup-content a.add-to-my-places').on('click', function(event_data) {

@@ -44,7 +44,6 @@ var Gallery = function (elem) {
 		
 		var data = [];
 		var imgs_div = $('<div class="img-container"></div>');
-		var captions_div = $('<div class="captions-container"></div>');
 		
 		for (var i of this.pics) {
 			/* Now make the img tags for each picture */
@@ -61,14 +60,16 @@ var Gallery = function (elem) {
 			a.append(thumb);
 			this._makeDialog(a, full_img_div, i.caption);
 
+			var img_div = $('<div></div>');
 			var caption = $('<span class="img-caption">' + i.caption + '</span>');
 			
-			imgs_div.append(a);
-			captions_div.append(caption);
+			img_div.append(a);
+			img_div.append(caption);
+
+			imgs_div.append(img_div);
 		}
 	
 		elem.append(imgs_div);
-		elem.append(captions_div);
 		elem.show()
 	
 	};

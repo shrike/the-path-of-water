@@ -49,7 +49,7 @@ html, body, #map-canvas {
 }
 
 #gallery {
-	height: 170px;
+	height: 180px;
     width: auto;
     white-space: nowrap;
     overflow-x: auto;
@@ -60,8 +60,6 @@ html, body, #map-canvas {
 }
 
 #gallery img {
-	margin-right: 5px;
-	margin-left: 5px;
 	display: inline-block;
 }
 
@@ -69,26 +67,25 @@ html, body, #map-canvas {
 	display: none;
 }
 
-.img-caption{
-	width: 160px;
-	padding: 0 5px;
-	font-size: 12px;
-	font-weight: bold;
-	color: #4c5e66;
+.img-container a {
+	display: block;
 }
 
 .img-container {
 	height: 150px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #4c5e66;
+	display: flex;
+}
+
+.img-container div {
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 .img-container a:hover img {
 	opacity: 0.8;
-}
-
-.captions-container {
-	height: 20px;
-	display: flex;
-	font-size: 15px;
 }
 
 .marker-popup {

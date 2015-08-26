@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
 	initTours();
 	initNav();
 	initMyPlaces();
-	gallery = new Gallery($('#gallery'));
+	gallery = new Gallery($('#gallery'));	
 });
 
 var markers = {};
@@ -14,6 +14,25 @@ var tours = [];
 var map;
 var infobox;
 var my_places;
+var cat_to_all_check_boxes = {};
+
+
+function parseHash() {
+	var hash_parts = window.location.hash.split('+');
+	var cat = hash_parts[0].substr(1);
+	var name = hash_parts[1];
+	
+	// find the object corresponding to the hash
+	var checkboxes = cat_to_all_check_boxes[cat]
+	for(var c of checkboxes) {
+		if (makeNameUrl(c.name) == name) {
+			$(c).prop('checked', true);
+			$(c).trigger('change');
+			// Also open the corresponding accordion menu
+			$('#' + cat + '-submenu').prev().click();
+		}
+	}
+}
 
 
 function initMyPlaces() {
@@ -220,15 +239,13 @@ function initNav() {
   
   var categories = ['fountains', 'birds', 'culture', 'religion', 'eco', 'hunting', 'water', 'tours'];
   var uls = {};
-  var cat_to_all_check_boxes = {};
   
 	function makeObjLi(obj, name, cat) {
 		var li = $('<li>'+ name +'</li>')
-		var chck_box = $('<input type="checkbox" checked="true" value="' + name + '">');
+		var chck_box = $('<input type="checkbox" value="' + name + '">');
+		chck_box.prop('checked', false);
 		li.append(chck_box);
 
-		obj.checks += 1
-		
 		chck_box.change({obj: obj, check_box: chck_box}, function(event_data) {
 			var obj = event_data.data['obj'];
 			if (event_data.target.checked) {
@@ -243,6 +260,7 @@ function initNav() {
 			}
 		});
 
+		chck_box.name = name;
 		cat_to_all_check_boxes[cat].push(chck_box);
 
 		return li;
@@ -257,7 +275,8 @@ function initNav() {
 	});
   
 	var all_li = $('<li>' + 'Всички обекти' + '</li>');
-	var all_chck_box = $('<input type="checkbox" checked="true" value="all" />');
+	var all_chck_box = $('<input type="checkbox" value="all" />');
+	all_chck_box.prop('checked', false);
 	var all_check_boxes = [];
 	cat_to_all_check_boxes[c] = all_check_boxes;
   
@@ -333,6 +352,8 @@ function initialize() {
 		map: map
 	});
 	
+	// Uncomment below to show all markers and tours at map load time
+	/* 
 	for (t of tours) {
 		t.show(map);
 	}
@@ -340,6 +361,8 @@ function initialize() {
 	for(m_id in markers) {
 		markers[m_id].setMap(map);
 	}
+	*/
+	parseHash();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

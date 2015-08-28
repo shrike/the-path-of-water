@@ -22,6 +22,10 @@ function parseHash() {
 	var cat = hash_parts[0].substr(1);
 	var name = hash_parts[1];
 	
+	if (!cat) {
+		return;
+	}
+	
 	// find the object corresponding to the hash
 	var checkboxes = cat_to_all_check_boxes[cat]
 	for(var c of checkboxes) {

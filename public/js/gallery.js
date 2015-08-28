@@ -3,10 +3,10 @@ var domain = "http://water.wepbro.com/";
 
 
 function makeThumbPath(name) {
-	return domain + 'wp-content/uploads/2015/08/' + name + '-150x150.jpg';
+	return domain + 'wp-content/uploads/2015/08/' + makeNameUrl(name) + '-150x150.jpg';
 }
 function makeImagePath(name) {
-	return domain + 'wp-content/uploads/2015/08/' + name + '.jpg';
+	return domain + 'wp-content/uploads/2015/08/' + makeNameUrl(name) + '.jpg';
 }
 
 
@@ -87,19 +87,39 @@ Gallery.prototype.getCover = function () {
 
 Gallery.prototype.setPics = function (picsStr, caption) {
 	this.pics = [];
-		
-	if (picsStr.indexOf('-') > 0) {
-		var picsArr = picsStr.split('-');
-		
-		var first = Number(picsArr[0]);
-		var last = Number(picsArr[1]);
-		
-		for(var i=first; i <= last; ++i) {
+	
+	if (picsStr.indexOf(';') > 0) {
+		var picsArr = picsStr.split(';');
+		for(var picName of picsArr) {
 			this.pics.push({
-				name: "DSC9" + i,
+				name: picName.trim(),
 				caption: caption
 			});
 		}
+	} else if (picsStr.indexOf('-') > 0) {
+		var picsArr = picsStr.split('-');
+		
+		var first = Number(picsArr[0]);		
+		var last = Number(picsArr[1]);
+		
+		if (Number.isNaN(first) || Number.isNaN(last)) {
+			this.pics.push({
+				name: picsStr.trim(),
+				caption: caption
+			});
+		} else {
+			for(var i=first; i <= last; ++i) {
+				this.pics.push({
+					name: "DSC9" + i,
+					caption: caption
+				});
+			}
+		}
+	} else if (picsStr.length > 0) {
+		this.pics.push({
+			name: picsStr.trim(),
+			caption: caption
+		});		
 	} else {
 		console.log("BAD picsStr: " + picsStr);
 	}

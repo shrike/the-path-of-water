@@ -209,12 +209,13 @@ function initMarkers() {
 		var cat2 = o[7];
 		var cat3 = o[8];
 		var desc = o[3];
+		var pics = o[4];
 		
 		if (X > 0 && Y > 0) {
 			// Using cat1 in the call below will mean that the marker will always link to the WP article
 			// in the first category. This may cause some confusion for the users as when looking for a 
 			// culture object, one may end up in the article for a fountain, if an object is listed as both.
-			markers[coords] = createMarker(coords, name, X, Y, desc, parseCat(cat1), '');
+			markers[coords] = createMarker(coords, name, X, Y, desc, parseCat(cat1), pics);
 			markers[coords].checks = 0;
 			markers[coords].desc = desc;
 		}

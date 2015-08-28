@@ -90,7 +90,7 @@ html, body, #map-canvas {
 
 .marker-popup {
 	/*background: url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat;*/
-	background: url('img/tipbox.png') no-repeat;
+	background: url('../img/tipbox.png') no-repeat;
 	background-position: center top;
 	opacity: 0.95;
 }
@@ -215,14 +215,14 @@ html, body, #map-canvas {
 #nav h3 a {
 	width: 100%;
 	display: block;
-	background: url('img/bottom-map.png') no-repeat top right;
+	background: url('../img/bottom-map.png') no-repeat top right;
 	padding: 7px 0;
 	color: #FFF;
 	text-decoration: none;
 }
 
 #nav h3 a:hover {
-	background: url('img/bottom-map-hover.png') no-repeat top right;	
+	background: url('../img/bottom-map-hover.png') no-repeat top right;	
 }
 
 /* These styles must be applied to h3, when the menu is open */
@@ -254,14 +254,14 @@ html, body, #map-canvas {
 #nav h3.open a {
 	width: 100%;
 	display: block;
-	background: url('img/top-map.png') no-repeat top right;
+	background: url('../img/top-map.png') no-repeat top right;
 	padding: 4px 0;
 	color: #FFF;
 	text-decoration: none;
 }
 
 #nav h3 a.open:hover {
-	background: url('img/top-map-hover.png') no-repeat top right;	
+	background: url('../img/top-map-hover.png') no-repeat top right;	
 }
 
 #nav div.submenu ul {
@@ -355,7 +355,7 @@ html, body, #map-canvas {
 #my-places ol li a {
 	position: absolute;
 	right: 5px;
-	background-image: url('img/close2.png');
+	background-image: url('../img/close2.png');
 	width: 20px;
 	height: 20px;
 	text-indent: -9999px;
@@ -363,7 +363,7 @@ html, body, #map-canvas {
 }
 
 #my-places ol li a:hover {
-	background-image: url('img/close2-hover.png');
+	background-image: url('../img/close2-hover.png');
 }
 
 #my-places .print {
@@ -395,7 +395,7 @@ html, body, #map-canvas {
 }
 
 #my-places .print:before {
-	background: url('img/print.png') no-repeat center center;
+	background: url('../img/print.png') no-repeat center center;
 	content: "";
 	width: 20px;
 	height: 18px;

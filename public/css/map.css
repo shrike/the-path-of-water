@@ -191,6 +191,10 @@ html, body, #map-canvas {
 	position: absolute;
 }
 
+#marker-popup-thumb img {
+	width: 140px;
+}
+
 /* Nav Styles */
 #nav {
 	overflow: auto;

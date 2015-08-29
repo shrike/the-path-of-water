@@ -1,6 +1,4 @@
 
-var domain = "http://water.wepbro.com/";
-
 function replaceSpaces(name) {
 	return name.replace(/ /g, '-');
 }
@@ -41,8 +39,6 @@ var Gallery = function (elem) {
 	});
 */	
 	this.show = function () {
-		//XXX Change the domain below to / when deploying (on either test domain or production)
-		
 		elem.empty();
 		
 		var data = [];

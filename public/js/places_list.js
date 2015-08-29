@@ -44,7 +44,7 @@ PlacesList.prototype.populatePrint = function(elem) {
 	console.log(this._places)
 
 	var idx = 0;
-	elem.find('.print').empty();
+	elem.find('.obj-container').empty();
 	for (var k in this._places) {
 		idx += 1;
 		var p = this._places[k];
@@ -65,7 +65,7 @@ PlacesList.prototype.populatePrint = function(elem) {
 		printObj.append(infoObj);
 		infoObj.append(p.desc)
 		
-		elem.find('.print').append(printObj)
+		elem.find('.obj-container').append(printObj)
 	}
 }
 

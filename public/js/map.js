@@ -1,3 +1,5 @@
+//XXX Change the domain below to / when deploying (on either test domain or production)
+var domain = "http://water.wepbro.com/";
 
 var gallery;
 
@@ -105,8 +107,6 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 		icon: icon_path
 	});
 
-	//XXX Change the domain below to / when deploying (on either test domain or production)
-	var domain = "http://water.wepbro.com/";
 	var read_more_url = domain + cat_url + "/" + makeNameUrl(name);
 	
 	// Uncomment below to load the pics for all objects in the starting gallery.
@@ -153,7 +153,7 @@ function initTours() {
 	// Load the kmls for all 13 tours
 	for(var i=1; i<=13; ++i) {
 		var tourLayer = new google.maps.KmlLayer({
-			url: 'https://sites.google.com/site/thepathofwater2/kmls/t' + i + '.kml',
+			url: 'https://sites.google.com/site/thepathofwater2/kmls/t' + i + '.kml', //XXX Fix kml location
 			clickable: false,
 			preserveViewport: true
 		});
@@ -365,7 +365,7 @@ function initialize() {
 
 	// Outline the 3 municipalities
 	var municipalityLayer  = new google.maps.KmlLayer({
-		url: 'https://sites.google.com/site/thepathofwater2/kmls/stg.kml',
+		url: 'https://sites.google.com/site/thepathofwater2/kmls/stg.kml', //XXX fix kml location
 		clickable: false,
 		map: map
 	});

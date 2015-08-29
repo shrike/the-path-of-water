@@ -2,11 +2,11 @@
 var gallery;
 
 jQuery(document).ready(function(){
+	gallery = new Gallery($('#gallery'));	
 	initMarkers();
 	initTours();
 	initNav();
 	initMyPlaces();
-	gallery = new Gallery($('#gallery'));	
 });
 
 var markers = {};
@@ -108,6 +108,10 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 	//XXX Change the domain below to / when deploying (on either test domain or production)
 	var domain = "http://water.wepbro.com/";
 	var read_more_url = domain + cat_url + "/" + makeNameUrl(name);
+	
+	// Uncomment below to load the pics for all objects in the starting gallery.
+	// Can be used to debug if all images properly load.
+	//gallery.addPics(pics, name);
 	
 	google.maps.event.addListener(marker, 'click', function() {
 		gallery.setPics(pics, name);

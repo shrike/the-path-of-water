@@ -88,6 +88,13 @@ html, body, #map-canvas {
 	opacity: 0.8;
 }
 
+.img-caption {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 150px;
+    display: block;
+}
+
 .marker-popup {
 	/*background: url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat;*/
 	background: url('../img/tipbox.png') no-repeat;

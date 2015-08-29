@@ -430,3 +430,11 @@ html, body, #map-canvas {
 #print-btns-container {
 	margin-left: 5px;
 }
+
+#print {
+	display: none;
+}
+
+#print-prev {
+	display: none;
+}

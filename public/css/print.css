@@ -1,0 +1,109 @@
+/*
+.print-bg {
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.65;
+	cursor: pointer;
+}
+*/
+.print {
+	width: 840px;
+	height: 700px;
+	overflow: auto;
+	/* margin: 50px auto; */
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #fff;
+	font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+	color: #4c5e66;
+	font-size: 12px;
+	position: relative;
+}
+
+.print .head {
+	background-color: #e8ebf0;
+	border-bottom: 1px dashed #bcc0c6;
+}
+
+.print .head h3 {
+	padding: 15px 20px;
+	margin: 0;	
+	border-bottom: 1px dashed #bcc0c6;
+	font-size: 20px;
+}
+
+.print .head p {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 20px;
+	margin: 10px 0;
+}
+
+.pf-src {
+	font-size: 11px;	
+	padding: 10px 20px;
+	margin: 10px 0 40px 0;
+}
+
+.pf-src a  {
+	color: #f4693e;	
+	font-weight: bold;
+}
+
+.pf-src-name {
+	float: left;
+	background: url('../public/img/earth.png') left 2px no-repeat;
+	padding:0 0 5px 20px;
+}
+
+.pf-src-url {
+	float: right;
+}
+
+.print-object {		
+	padding: 0 20px;
+	margin-bottom: 25px;
+}
+
+.print-object .head-object {
+	float: left;
+	border-bottom: 1px solid #cecfd1;
+	margin-bottom: 10px;	
+}
+
+.print-object .head-object h1 {
+	font-size: 15px;
+	width: 580px;
+	float: left;
+}
+
+.print-object .head-object .gps-c {
+	font-style: italic;
+	width: 200px;
+	float: right;
+	font-size: 13px;
+	text-align: right;
+	font-weight: bold;	
+}
+
+#print .print {
+	height: auto;
+}
+
+@media print {
+	.print-hide {
+		display: none !important;
+	}
+	
+	.print-show {
+		display: block !important;
+	}
+}

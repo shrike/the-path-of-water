@@ -202,6 +202,7 @@ function initMarkers() {
 		markers[id] = createMarker(id, name, X, Y, desc, 'fountain', pics);
 		markers[id].checks = 0;
 		markers[id].desc = desc;
+		markers[id].coords = X + ', ' + Y
 	}
 
 	for(o of objs.slice(1)) {
@@ -222,6 +223,7 @@ function initMarkers() {
 			markers[coords] = createMarker(coords, name, X, Y, desc, parseCat(cat1), pics);
 			markers[coords].checks = 0;
 			markers[coords].desc = desc;
+			markers[coords].coords = X + ', ' + Y
 		}
 	}
 }

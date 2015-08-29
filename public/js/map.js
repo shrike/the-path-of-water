@@ -51,7 +51,7 @@ function initMyPlaces() {
 	
 	infobox.addListener('domready', function() {
 		$('#marker-popup-content a.add-to-my-places').on('click', function(event_data) {
-			var id = event_data.target.dataset.objId;
+			var id = event_data.currentTarget.dataset.objId;
 			my_places.add(id, markers[id]);
 		});
 	});
@@ -127,8 +127,8 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 				'<p>' + description + '</p>'+				
 			'</div>'+
 			'<div id="marker-popup-btns-container">' +
-				'<span class="marker-popup-btn"><a href="'+ read_more_url +'">виж повече' + '</a></span>' +
-				'<span class="marker-popup-btn"><a href="#" data-obj-id="'+ id +'" class="add-to-my-places">Добави към "Моите Места"</a></span>' + 
+				'<a href="'+ read_more_url +'"><span class="marker-popup-btn">виж повече' + '</span></a>' +
+				'<a href="#" data-obj-id="'+ id +'" class="add-to-my-places"><span class="marker-popup-btn">Добави към "Моите Места"</span></a>' + 
 			'</div>' +
 		'</div>';
 

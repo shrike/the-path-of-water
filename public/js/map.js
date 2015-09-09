@@ -1,5 +1,6 @@
 //XXX Change the domain below to / when deploying (on either test domain or production)
 var domain = "http://water.wepbro.com/";
+var production = false;
 
 var gallery;
 
@@ -74,7 +75,13 @@ function makeNameUrl(name) {
 
 
 function createMarker(id, name, X, Y, description, cat, pics) {
-	var icon_path = 'img/icons/';
+	var icon_path;
+	if (production) {
+		icon_path = '/wp-content/themes/water/img/icons/';
+	} else {
+		icon_path = 'img/icons/';
+	}
+
 	var cat_url;
 	
 	if (cat == 'fountain') {
@@ -170,6 +177,11 @@ function initTours() {
 
 
 function initMarkers() {
+	var close_png_url = "img/close.png";
+	if (production) {
+		close_png_url = "/wp-content/themes/water/img/close.png";
+	}
+	
     infobox = new InfoBox({
 		disableAutoPan: false,
 		maxWidth: 410,
@@ -177,7 +189,7 @@ function initMarkers() {
 		zIndex: null,
 		boxClass: 'marker-popup',
 		closeBoxMargin: "10px 4px 4px 4px",
-		closeBoxURL: "img/close.png",
+		closeBoxURL: close_png_url
     });
 	
 	infobox.addListener('closeclick', function() {

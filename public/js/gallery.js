@@ -80,7 +80,11 @@ Gallery.prototype.getCover = function () {
 	if (this.pics.length > 0) {
 		return makeThumbPath(this.pics[0].name);
 	} else {
-		return "img/default-img.jpg"
+		if (production) {
+			return "/wp-content/themes/water/img/default-img.jpg"
+		} else {
+			return "img/default-img.jpg"
+		}
 	}
 }
 

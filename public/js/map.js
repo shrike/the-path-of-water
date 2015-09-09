@@ -133,6 +133,10 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 			'</div>' +
 		'</div>';
 
+		//XXX: hardcode the popup width here so we can always display it in the center of the map. 
+		// If we change the width of the popup in css we HAVE to change it here too!
+		var marker_popup_content_width = 390;
+		infobox.setOptions({infoBoxClearance: new google.maps.Size(($('#map-canvas').width() - marker_popup_content_width) / 2, $('#gallery-container').height() + 40)})
 		infobox.setContent(contentString);
 		infobox.open(map, marker);
 	});
@@ -174,7 +178,6 @@ function initMarkers() {
 		boxClass: 'marker-popup',
 		closeBoxMargin: "10px 4px 4px 4px",
 		closeBoxURL: "img/close.png",
-		infoBoxClearance: new google.maps.Size(1, 1)
     });
 	
 	infobox.addListener('closeclick', function() {
@@ -362,7 +365,7 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	// Set the general map styles
-	map.setOptions({styles: styles});
+	//map.setOptions({styles: styles});
 
 	// Outline the 3 municipalities
 	var municipalityLayer  = new google.maps.KmlLayer({
@@ -381,7 +384,14 @@ function initialize() {
 		markers[m_id].setMap(map);
 	}
 	*/
-	parseHash();
+	
+	var parsedHash = false;
+	map.addListener('tilesloaded', function() {
+		if (!parsedHash) {
+			parsedHash = true;
+			parseHash();
+		}
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

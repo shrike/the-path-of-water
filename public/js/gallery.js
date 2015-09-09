@@ -10,10 +10,6 @@ function makeImagePath(name) {
 	return domain + 'wp-content/uploads/2015/08/' + replaceSpaces(name) + '.jpg';
 }
 
-function resizeMap() {
-	$('#map-canvas').height($('#rest').height() - $('#gallery-container').height())
-}
-
 var Gallery = function (elem) {
 	this.pics = [];
 	
@@ -73,12 +69,10 @@ var Gallery = function (elem) {
 	
 		elem.append(imgs_div);
 		elem.show();
-		resizeMap();
 	};
 	
 	this.hide = function () {
 		elem.hide()
-		resizeMap();
 	};
 }
 

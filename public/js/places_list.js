@@ -15,6 +15,7 @@ var PlacesList = function (elem) {
 		$('#map-canvas').toggleClass('print-hide');
 		$('#gallery-container').toggleClass('print-hide');
 		$('#my-places').toggleClass('print-hide');
+		$('footer').toggleClass('print-hide');
 		
 		window.print()
 
@@ -24,6 +25,7 @@ var PlacesList = function (elem) {
 		$('#map-canvas').toggleClass('print-hide');
 		$('#gallery-container').toggleClass('print-hide');
 		$('#my-places').toggleClass('print-hide');
+		$('footer').toggleClass('print-hide');
 	})
 
 	$('#print-prev-btn').click(function () {

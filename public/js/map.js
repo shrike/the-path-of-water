@@ -63,6 +63,7 @@ function initMyPlaces() {
 
 function makeNameUrl(name) {
 	var name_url = name.toLowerCase();
+	name_url = name_url.trim();
 	name_url = name_url.replace(/[ –]/g, '-');
 	name_url = name_url.replace(/["„”“().,]/g, '');
 	name_url = name_url.replace(/-+/g, '-');

@@ -66,7 +66,6 @@ function makeNameUrl(name) {
 	name_url = name_url.replace(/[ –]/g, '-');
 	name_url = name_url.replace(/["„”“().,]/g, '');
 	name_url = name_url.replace(/-+/g, '-');
-	name_url = name_url.substr(0, 36);
 	
 	//console.log(name, name_url);
 	

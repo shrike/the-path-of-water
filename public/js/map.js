@@ -22,8 +22,8 @@ var cat_to_all_check_boxes = {};
 
 function parseHash() {
 	var hash_parts = window.location.hash.split('+');
-	var cat = hash_parts[0].substr(1);
-	var name = hash_parts[1];
+	var cat = decodeURIComponent(hash_parts[0].substr(1));
+	var name = decodeURIComponent(hash_parts[1]);
 	
 	if (!cat) {
 		return;

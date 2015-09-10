@@ -144,7 +144,6 @@ function createMarker(id, name, X, Y, description, cat, pics) {
 		// If we change the width of the popup in css we HAVE to change it here too!
 		// The width is equal to the css width + 2 times the padding (or left padding + right padding)
 		var marker_popup_content_width = 390 + 2*20;
-		console.log(($('#map-canvas').width() - marker_popup_content_width) / 2, $('#gallery-container').height() + 40);
 		var side = ($('#map-canvas').width() - marker_popup_content_width) / 2;
 		var bot = $('#gallery-container').height() + 40;
 		infobox.setOptions({infoBoxClearance: {left: side, right: side, top: 0, bottom: bot}});

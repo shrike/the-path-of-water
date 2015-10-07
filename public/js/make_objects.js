@@ -1,9 +1,9 @@
 var fs = require('fs');
 var csv = require('fast-csv');
 
-var objs = "var objs = [\n";
+var objs = "var objs_en = [\n";
 
-var all = csv.fromPath('objects.csv')
+var all = csv.fromPath('../objects-en.csv')
 	.on('data', function (data) {
 		var escaped_data = [];
 		for(var d of data) {
@@ -13,7 +13,7 @@ var all = csv.fromPath('objects.csv')
 	})
 	.on("end", function(){
 		objs += '];'
-		fs.writeFileSync('objects.js', objs)
+		fs.writeFileSync('objects-en.js', objs)
 	});
 /*
 for(var line of lines) {

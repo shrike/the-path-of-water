@@ -1,15 +1,15 @@
 var fs = require('fs');
 var csv = require('fast-csv');
 
-var fountains = "var fountains = [\n";
+var fountains = "var fountains_en = [\n";
 
-var all = csv.fromPath('fountains.csv')
+var all = csv.fromPath('../fountains-en.csv')
 	.on('data', function (data) {
 		fountains += '["' + data.join('","') + '"],\n';
 	})
 	.on("end", function(){
 		fountains += '];'
-		fs.writeFileSync('fountains.js', fountains)
+		fs.writeFileSync('fountains-en.js', fountains)
 	});
 /*
 for(var line of lines) {

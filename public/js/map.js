@@ -5,6 +5,7 @@ var production = false;
 var gallery;
 
 jQuery(document).ready(function(){
+	initObjectTexts();
 	gallery = new Gallery($('#gallery'));	
 	initMarkers();
 	initTours();
@@ -19,6 +20,32 @@ var infobox;
 var my_places;
 var cat_to_all_check_boxes = {};
 
+
+function initObjectTexts() {
+	if (document.location.pathname.indexOf('/en') < 0)
+		return;
+	
+	for(var i=1; i<fountains.length; ++i) {
+		var f_en = fountains_en[i]
+		// Make sure the names match!
+		if (fountains[i][2] != f_en[2]) {
+			console.error("Name of en object does not match!", f_en[2], fountains[i][2])
+		} else {
+			fountains[i][2] = f_en[0]
+		}
+	}
+	
+	for(var i=1; i<objs.length; ++i) {
+		var o_en = objs_en[i]
+		// Make sure the names match!
+		if (objs[i][0] != o_en[2]) {
+			console.error(i, "Name of en object does not match!", o_en[2], objs[i][0])
+		} else {
+			objs[i][0] = o_en[0]
+			objs[i][3] = o_en[1]
+		}
+	}
+}
 
 function parseHash() {
 	var hash_parts = window.location.hash.split('+');
